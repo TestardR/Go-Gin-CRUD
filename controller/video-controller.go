@@ -16,10 +16,10 @@ type controller struct {
 }
 
 func New(service service.VideoService) VideoController {
-	return &controller {
+	return &controller{
 		service: service,
 	}
-} 
+}
 
 func (c *controller) FindAll() []entity.Video {
 	return c.service.FindAll()
@@ -30,4 +30,4 @@ func (c *controller) Save(ctx *gin.Context) entity.Video {
 	ctx.BindJSON(&video)
 	c.service.Save(video)
 	return video
-} 
+}
