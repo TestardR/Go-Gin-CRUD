@@ -3,6 +3,21 @@
  - using code:	gin.SetMode(gin.ReleaseMode)
 
 [GIN-debug] GET    /videos                   --> main.main.func1 (5 handlers)
-[GIN-debug] POST   /videos                   --> main.main.func2 (5 handlers)
+[GIN-debug] GET    /videos/:id               --> main.main.func2 (5 handlers)
+[GIN-debug] POST   /videos                   --> main.main.func3 (5 handlers)
 [GIN-debug] Listening and serving HTTP on :8080
-::1 - [10 Jan 21 15:13 CET] GET /videos 200 411.892µs 
+[GIN-debug] redirecting request 307: /videos --> /videos
+::1 - [11 Jan 21 20:50 CET] POST /videos 200 586.482µs 
+[GIN-debug] redirecting request 301: /videos --> /videos
+::1 - [11 Jan 21 20:50 CET] GET /videos 200 186.728µs 
+[GIN-debug] redirecting request 307: /videos --> /videos
+::1 - [11 Jan 21 20:50 CET] POST /videos 200 224.577µs 
+[GIN-debug] redirecting request 307: /videos --> /videos
+::1 - [11 Jan 21 20:50 CET] POST /videos 400 2.404515ms 
+[GIN-debug] redirecting request 307: /videos --> /videos
+::1 - [11 Jan 21 20:50 CET] POST /videos 400 278.145µs 
+[GIN-debug] redirecting request 307: /videos --> /videos
+::1 - [11 Jan 21 20:51 CET] POST /videos 200 298.467µs 
+[GIN-debug] redirecting request 301: /videos --> /videos
+::1 - [11 Jan 21 20:51 CET] GET /videos 200 242.389µs 
+::1 - [11 Jan 21 20:51 CET] GET /videos/1 200 291.4µs 

@@ -1,14 +1,18 @@
 package service
 
-import "github.com/TestardR/Go-Gin-CRUD/entity"
+import (
+	"github.com/TestardR/Go-Gin-CRUD/entity"
+)
 
 type VideoService interface {
 	Save(entity.Video) entity.Video
 	FindAll() []entity.Video
+	FindOne(id string) entity.Video
 }
 
 type videoService struct {
 	videos []entity.Video
+	video  entity.Video
 }
 
 func New() VideoService {
@@ -22,4 +26,15 @@ func (service *videoService) Save(video entity.Video) entity.Video {
 
 func (service *videoService) FindAll() []entity.Video {
 	return service.videos
+}
+
+func (service *videoService) FindOne(id string) entity.Video {
+	video := service.video
+	for i := 0; i < len(service.videos); i++ {
+		if id == service.videos[i].ID {
+			video = service.videos[i]
+		}
+	}
+
+	return video
 }

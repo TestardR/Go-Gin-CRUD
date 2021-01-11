@@ -2,6 +2,7 @@ package main
 
 import (
 	"io"
+	"net/http"
 	"os"
 
 	"github.com/TestardR/Go-Gin-CRUD/controller"
@@ -25,17 +26,28 @@ func setupLogOutput() {
 func main() {
 	setupLogOutput()
 
-	server := gin.New()
-	server.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth(), gindump.Dump())
+	router := gin.New()
+	router.Use(gin.Recovery(), middlewares.Logger(), middlewares.BasicAuth(), gindump.Dump())
 
 	// TODO: Add PUT and DELETE route
-	server.GET("/videos", func(ctx *gin.Context) {
+	router.GET("/videos", func(ctx *gin.Context) {
 		ctx.JSON(200, videoController.FindAll())
 	})
 
-	server.POST("/videos", func(ctx *gin.Context) {
-		ctx.JSON(200, videoController.Save((ctx)))
+	router.GET("/videos/:id", func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		video := videoController.FindOne(id)
+		ctx.JSON(200, gin.H{"message": video})
 	})
 
-	server.Run(":8080")
+	router.POST("/videos", func(ctx *gin.Context) {
+		err := videoController.Save(ctx)
+		if err != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		} else {
+			ctx.JSON(http.StatusOK, gin.H{"message": "Input is valid"})
+		}
+	})
+
+	router.Run(":8080")
 }
